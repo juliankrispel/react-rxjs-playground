@@ -1,25 +1,32 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import Rx from 'rxjs';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/map';
 import './App.css';
 
-var stream = new Rx.Subject();
+// we create the Subject
+const stream = new Subject();
 
-stream.map(() => state => Object.assign({}, state, {count: state.count + 1}));
-stream.subscribe(() => console.log('click'));
+class App extends Component{
+  // We define some intial state for the component
+  state = {
+    number: 0
+  };
 
-const App = () => (
-  <div className="App">
-    <div className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <h2>Welcome to React</h2>
-    </div>
-    <div className="App-intro">
-      <div>- number -</div>
-      <button onClick={() => stream.next('+')}>Plus</button>
-      <button onClick={() => stream.next('-')}>Minus</button>
-    </div>
-  </div>
-);
+  componentDidMount() {
+    // We update the state in our subscribe callback
+    stream.subscribe((val) => this.setState({ number: this.state.number + val  }));
+  }
+
+  render() {
+    // We render the number and the buttons for adding +1 or -1.
+    return (
+      <div className="App-intro">
+        <div>{this.state.number} -</div>
+        <button onClick={() => stream.next(1)}>Plus</button>
+        <button onClick={() => stream.next(-1)}>Minus</button>
+      </div>
+    );
+  }
+}
 
 export default App;
