@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import './App.css';
 
 // we create the Subject
-const stream = new Subject();
+const counter = new Subject();
 
 class App extends Component{
   // We define some intial state for the component
@@ -14,7 +14,7 @@ class App extends Component{
 
   componentDidMount() {
     // We update the state in our subscribe callback
-    stream.subscribe((val) => this.setState({ number: this.state.number + val  }));
+    counter.subscribe((val) => this.setState({ number: this.state.number + val  }));
   }
 
   render() {
@@ -22,8 +22,8 @@ class App extends Component{
     return (
       <div className="App-intro">
         <div>{this.state.number} -</div>
-        <button onClick={() => stream.next(1)}>Plus</button>
-        <button onClick={() => stream.next(-1)}>Minus</button>
+        <button onClick={() => counter.next(1)}>Plus</button>
+        <button onClick={() => counter.next(-1)}>Minus</button>
       </div>
     );
   }
