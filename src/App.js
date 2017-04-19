@@ -30,10 +30,9 @@ class App extends Component{
   }
 
   render() {
-    // We render the number and the buttons for adding +1 or -1.
+    // We render the interface, bind callbacks from the input field and the "add to list" button to our Subjects and display the todos in a list below
     return (
       <div className="App-intro">
-        <div className="number">{this.state.number}</div>
         <input
           type="text"
           autoFocus
